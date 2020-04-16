@@ -1,0 +1,32 @@
+<!doctype html>
+<html>    
+ <head>
+   <title>Socket.IO Chat</title>
+    
+ </head>
+ <body>
+   <script src='/socket.io/socket.io.js'></script>
+   <script>
+    var socket = io();
+       
+    var send = function(){
+        var text = document.getElementById('m').value;
+        socket.emit('chat message',text);
+    }
+    
+    var receive = function(msg){ //ajoute le msg dans la liste client
+        var li = document.createElement('li');
+        li.innerText = msg;
+        document.getElementById('messages').appendChild(li);
+    }
+    
+    socket.on('chat message',receive); //on écoute le chat message et on appelle la fct receive
+    
+   </script>
+    <div>
+        <ul id="messages"></ul> <!-- liste des messages -->
+        <input id="m" /> <button onclick="send()">send</button> <!-- champ et btn -->
+    </div>
+     
+ </body>
+</html>
